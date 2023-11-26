@@ -1,14 +1,22 @@
-from flask import Flask, make_response
-import sys
+from quart import Quart, Blueprint, render_template
 
-app = Flask(__name__)
+bp = Blueprint("routes", __name__, static_folder="static/react", static_url_path="/static/react")
 
-@app.route('/')
-def index():
-    version = sys.version_info
-    response = make_response(f"Hello World, I am Python {version.major}.{version.minor}", 200)
-    response.mimetype = "text/plain"
-    return response
+@bp.route('/')
+async def index():
+    return await render_template('react/index.html')
+
+def create_app():
+    app = Quart(__name__)
+    app.register_blueprint(bp)
+
+    @app.route('/api/v1/hello')
+    async def hello():
+        return {'message': 'Hello World'}
+
+    return app
+
+app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True,port=50000)
+    app.run(debug=True, port=50000)

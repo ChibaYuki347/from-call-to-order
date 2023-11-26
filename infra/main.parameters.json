@@ -7,6 +7,30 @@
     },
     "location": {
       "value": "${AZURE_LOCATION}"
+    },
+    "openAiServiceName": {
+      "value": "${AZURE_OPENAI_SERVICE}"
+    },
+    "openAiResourceGroupName": {
+      "value": "${AZURE_OPENAI_RESOURCE_GROUP}"
+    },
+    "openAiSkuName": {
+      "value": "S0"
+    },
+    "chatGptDeploymentName": {
+      "value": "${AZURE_OPENAI_CHATGPT_DEPLOYMENT=chat}"
+    },
+    "embeddingDeploymentName": {
+      "value": "${AZURE_OPENAI_EMB_DEPLOYMENT=embedding}"
+    },
+    "openAiHost": {
+      "value": "${OPENAI_HOST=azure}"
+    },
+    "openAiApiKey": {
+      "value": "${OPENAI_API_KEY}"
+    },
+    "openAiApiOrganization": {
+      "value": "${OPENAI_ORGANIZATION}"
     }
   }
 }

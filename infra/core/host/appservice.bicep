@@ -2,6 +2,12 @@ param location string
 param resourceToken string
 param tags object
 
+// Microsoft.Web/sites Properties
+param kind string = 'app,linux'
+// Microsoft.Web/sites/config Properties
+param enableOryxBuild bool = contains(kind, 'linux')
+param appCommandLine string = ''
+
 resource web 'Microsoft.Web/sites@2022-03-01' = {
   name: 'web-${resourceToken}'
   location: location
@@ -12,6 +18,7 @@ resource web 'Microsoft.Web/sites@2022-03-01' = {
     siteConfig: {
       linuxFxVersion: 'PYTHON|3.11'
       ftpsState: 'Disabled'
+      appCommandLine: appCommandLine
     }
     httpsOnly: true
   }
@@ -23,6 +30,7 @@ resource web 'Microsoft.Web/sites@2022-03-01' = {
     name: 'appsettings'
     properties: {
       SCM_DO_BUILD_DURING_DEPLOYMENT: 'true'
+      ENABLE_ORYX_BUILD: string(enableOryxBuild)
     }
   }
 
